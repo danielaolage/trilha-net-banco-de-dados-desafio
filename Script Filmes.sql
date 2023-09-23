@@ -325,3 +325,40 @@ REFERENCES [dbo].[Generos] ([Id])
 GO
 ALTER TABLE [dbo].[FilmesGenero] CHECK CONSTRAINT [FK__FilmesGen__IdGen__2E1BDC42]
 GO
+
+
+
+
+
+
+SELECT Nome, Ano FROM Filmes;
+
+SELECT Nome, Ano, Duracao FROM Filmes order by 2, 1;
+
+SELECT Nome, Ano, Duracao FROM Filmes WHERE Nome like 'De Volta para o Futuro';
+
+SELECT Nome, Ano, Duracao FROM Filmes WHERE Ano = 1997 order by 1;
+
+SELECT Nome, Ano, Duracao FROM Filmes WHERE Ano > 2000 order by 2;
+
+SELECT Nome, Ano, Duracao FROM Filmes WHERE Duracao > 100 and Duracao < 150 order by 3;
+
+SELECT Ano, count(*) as 'Quantidade' FROM Filmes group by Ano order by 2 desc;
+
+SELECT PrimeiroNome, UltimoNome FROM Atores WHERE Genero like 'M';
+
+SELECT PrimeiroNome, UltimoNome FROM Atores WHERE Genero like 'F' order by 1;
+
+SELECT f.Nome, g.Genero
+FROM Filmes f, FilmesGenero fg, Generos g
+WHERE f.Id = fg.IdFilme and fg.IdGenero = g.Id;
+
+SELECT f.Nome, g.Genero
+FROM Filmes f, FilmesGenero fg, Generos g
+WHERE f.Id = fg.IdFilme and fg.IdGenero = g.Id
+AND g.Genero like 'Mistério';
+
+SELECT f.Nome, a.PrimeiroNome, a.UltimoNome, e.Papel
+FROM Filmes f
+INNER JOIN ElencoFilme e ON f.Id = e.IdFilme
+INNER JOIN Atores a ON e.IdAtor = a.Id;
